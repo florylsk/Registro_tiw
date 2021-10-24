@@ -24,7 +24,7 @@ public class myListener implements MessageListener{
 	
 	
 	
-	public void Receiver() throws JMSException, ParseException {
+	public static void Receiver() throws JMSException, ParseException {
 		try {
 			 //1) Create and start connection  
             InitialContext ctx=new InitialContext();  
@@ -45,23 +45,15 @@ public class myListener implements MessageListener{
             receiver.setMessageListener(listener);  
             
 			Message msg = null;
-			while (true) {
-				msg = receiver.receive(4000);
-				if (msg != null) {
+			msg = receiver.receive(4000);
+			if (msg != null) {
 
-					if (msg instanceof TextMessage) {
+			if (msg instanceof TextMessage) {
 
-						TextMessage txtM = (TextMessage) msg;
-					} else {
-						break;
-
+			TextMessage txtM = (TextMessage) msg;
 					}
-				} else // there are no messages
-				{
-					break;
-				}
+				} 
 
-			}
 			con.close();	
 		} 
 
@@ -103,6 +95,9 @@ public class myListener implements MessageListener{
 
 		
 	}
+
+
+
 	
 
 	

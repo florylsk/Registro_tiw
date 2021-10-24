@@ -10,7 +10,7 @@
         <meta name="viewport" content="width=device-width" />
 
         <!-- Title -->
-        <title>Registro - AulaMaster</title>
+        <title>CRUD - AulaMaster</title>
 
         <!-- CSS and JS-->
         <link href="${pageContext.request.contextPath}/resources/css/halfmoon-variables.min.css" rel="stylesheet" />
@@ -19,6 +19,8 @@
 
 </head>
 <body class="with-custom-webkit-scrollbars with-custom-css-scrollbars" data-dm-shortcut-enabled="true" data-set-preferred-mode-onload="true">
+	<%@page import="beans.*,java.util.*"%>  
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>  
 
 	<div class="page-wrapper with-navbar" data-sidebar-type="overlayed-sm-and-down">
 	
@@ -32,15 +34,8 @@
                     Administración
                 </a>
                 <ul class="navbar-nav d-none d-md-flex"> <!-- d-none = display: none, d-md-flex = display: flex on medium screens and up (width > 768px) -->
-          			<li class="nav-item">
-           				 <a href="index.jsp" class="nav-link">Home</a>
-       			   </li>
-        			  <li class="nav-item">
-         			  <a href="crud.jsp" class="nav-link">CRUD</a>
-        			 </li>
         			  <li class="nav-item active">
-        			   <a href="master.jsp" class="nav-link">Buscador de Máster</a>
-       			  </li>
+         			  <a href="registro.jsp" class="nav-link">Registro</a>
       			  </ul>
                 <!-- Navbar form. Here, search, help and profile buttons are shown -->
                 <div class="navbar-content d-none d-md-flex ml-auto">
@@ -61,12 +56,11 @@
                             <div class="inline-block text-center mw-full mt-10">
                                 <img alt="Profile image" src="${pageContext.request.contextPath}/resources/images/profile.jpeg" id="profile-image" class="inline w-150" />
                             </div>
-                            <div class="dropdown-item text-center font-size-20" id="profile-name">${nombre} ${apellido}</div>
+                            <div class="dropdown-item text-center font-size-20" id="profile-name">Super Admin</div>
                             <a href="#" class="dropdown-item" onclick="halfmoon.toggleDarkMode()">
                                 <span class="hidden-lm"><i class="fas fa-sun"></i> Modo claro</span>
                                 <span class="hidden-dm"><i class="fas fa-moon"></i> Modo oscuro</span>
                             </a>
-                            <a href="/test/adminlogout" class="dropdown-item text-danger"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
                         </div>
                     </div>
                 </div>
@@ -75,20 +69,113 @@
             
             
             <div class="page-wrapper with-navbar with-navbar-fixed-bottom" data-sidebar-type="full-height overlayed-sm-and-down">
+            <!-- Modal para crear usuario -->
+
+            
+            
+            
             <!-- Sticky alerts (toasts), empty container -->
             <!-- Reference: https://www.gethalfmoon.com/docs/sticky-alerts-toasts -->
             <div class="sticky-alerts"></div>
-
-          
-
-
+			<div class="w-250 m-auto">
+               		<!-- <button onclick="addUser()" class="btn btn-square btn-primary w-150" type="button"><i class="fas fa-user-plus"></i>     Añadir usuario</button> -->   
+               		<a href="#modal-add-student" class="btn btn-primary btn-square w-150" role="button"><i class="fas fa-user-plus"></i>     Añadir estudiante</a>              
+            </div>
+          	<!-- Content -->
+            <div class="content-wrapper ">
+            
+            	<div class="w-250 m-auto p-20">
+               		<form id="update-queue" action="updateQueue" method="post">
+               			<input class="btn btn-primary" type="submit" value="Actualizar cola">
+               		</form>              
+                </div>
+                
+                
+                <%  
+					List<Registro> registros=registroDAO.getAllRegistros();
+					request.setAttribute("registros",registros);  
+				%>  
+                <!-- Courses and management will be shown here -->
+                <div id="admin-courses">
+                	<table class="table table-striped" id="estudiantes">
+            			<thead>
+              				<tr>
+                 				<th style="width: 20%">Username</th>
+                 				<th style="width: 20%">Nombre</th>
+                 				<th style="width: 20%">Apellidos</th>
+                 				<th style="width: 20%">Fecha inicio</th>
+                 				<th style="width: 20%">Fecha Salida</th>
+              				</tr>
+		            	</thead>
+        		    	<tbody>
+        		    		<c:forEach items="${registros}" var="r">
+        		    			<tr>
+        		    				<th>
+        		    					${r.getUsername()}
+        		    				</th>
+        		    				<td>
+        		    					${r.getFirstname()}
+        		    				</td>
+        		    				<td>
+        		    					${r.getLastname()}
+        		    				</td>
+        		    				<td>
+        		    					${r.getStartTime()}
+        		    				</td>
+        		    				<td>
+        		    					${r.getEndTime()}
+        		    				</td>
+        		    			</tr>
+        		    		</c:forEach>
+        		    		
+            			</tbody>
+            			
+            			
+            		</table>
+            		<div class="divider mt-0 mb-5 border-bottom"></div>
+                </div>
+            </div>
+            
+            
+         
+	<nav class="navbar navbar-fixed-bottom">
+                	<div class="container-fluid">
+                   	 <ul class="navbar-nav ml-auto">
+                      	  <li class="nav-item">
+                        	    <a href="#" class="nav-link">Política de privacidad</a>
+                      	  </li>
+                  	  </ul>
+                  	  <span class="navbar-text"> &copy; AulaMaster </span>
+               	 </div>
+			</nav>
+		
 
 
 	</div>
+	
 
 		</div>
 
-
+					<script>
+							function searchFunction() {
+ 							 var input, filter, table, tr, td, i, txtValue;
+ 							 input = document.getElementById("searchInput");
+ 							 filter = input.value.toUpperCase();
+  							table = document.getElementById("estudiantes");
+  							tr = table.getElementsByTagName("tr");
+ 							 for (i = 0; i < tr.length; i++) {
+   								 td = tr[i].getElementsByTagName("td")[1];
+   								 if (td) {
+      								txtValue = td.textContent || td.innerText;
+      								if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        							tr[i].style.display = "";
+      								} else {
+       									 tr[i].style.display = "none";
+     								 }
+   								 }       
+ 							 }
+							}
+					</script>
 
 
 	</body>
