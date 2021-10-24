@@ -31,14 +31,7 @@ public class updateQueueServlet extends HttpServlet{
 	
 	protected void doPost(HttpServletRequest req, HttpServletResponse res)
 		    throws ServletException, IOException{
-		
-		try {
-			myListener.Receiver();
 			req.getRequestDispatcher("registro.jsp").forward(req, res);
-		} catch (JMSException | ParseException e) {
-			e.printStackTrace();
-		}
-		
-		
+
 	}
 }

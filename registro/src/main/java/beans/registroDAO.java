@@ -13,12 +13,12 @@ public class registroDAO{
 		int status=0;
 		try {
 			Connection con=connectionDB.getConnection();
-			PreparedStatement ps= con.prepareStatement("insert into records(username,firstname,lastname,fecha_inicio,fecha_salida) values(?,?,?,?)");
+			PreparedStatement ps= con.prepareStatement("insert into records(username,firstname,lastname,fecha_inicio,fecha_salida) values(?,?,?,?,?)");
 			ps.setString(1, registro.getUsername());
 			ps.setString(2, registro.getFirstname());
 			ps.setString(3, registro.getLastname());
-			ps.setTimestamp(4, registro.getStartTime());  
-			ps.setTimestamp(5, registro.getEndTime());  
+			ps.setString(4, registro.getStartTime());  
+			ps.setString(5, registro.getEndTime());  
 			status=ps.executeUpdate();
 			con.close();
 		}
@@ -35,7 +35,7 @@ public class registroDAO{
 			PreparedStatement ps=con.prepareStatement("select * from records");
 			ResultSet rs=ps.executeQuery();
 			while (rs.next()) {
-				Registro r = new Registro(rs.getString("username"),rs.getString("firstname"),rs.getString("lastname"),rs.getTimestamp("fecha_inicio"),rs.getTimestamp("fecha_salida")); 
+				Registro r = new Registro(rs.getString("username"),rs.getString("firstname"),rs.getString("lastname"),rs.getString("fecha_inicio"),rs.getString("fecha_salida")); 
 				registros.add(r);
 			}
 			con.close();

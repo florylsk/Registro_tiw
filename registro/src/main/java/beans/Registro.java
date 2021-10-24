@@ -1,19 +1,18 @@
 package beans;
 
-import java.sql.Timestamp;
 
 public class Registro{
 	private String username;
 	private String firstname;
 	private String lastname;
-	private Timestamp startTime;
-	private Timestamp endTime;
+	private String startTime;
+	private String endTime;
 
 	
 	
 	
 	
-	public Registro(String username, String firstname, String lastname, Timestamp startTime, Timestamp endTime) {
+	public Registro(String username, String firstname, String lastname, String startTime, String endTime) {
 		  this.username=username;
 		  this.firstname=firstname;
 		  this.lastname=lastname;
@@ -48,22 +47,22 @@ public class Registro{
 	}
 
 
-	public Timestamp getStartTime() {
+	public String getStartTime() {
 		return startTime;
 	}
 
 
-	public void setStartTime(Timestamp startTime) {
+	public void setStartTime(String startTime) {
 		this.startTime = startTime;
 	}
 
 
-	public Timestamp getEndTime() {
+	public String getEndTime() {
 		return endTime;
 	}
 
 
-	public void setEndTime(Timestamp endTime) {
+	public void setEndTime(String endTime) {
 		this.endTime = endTime;
 	}
 
