@@ -44,22 +44,31 @@ public class myListener implements MessageListener{
             //6) register the listener object with receiver  
             receiver.setMessageListener(listener);  
             
-            Message msg = null;
-			msg = receiver.receive(4000);
-			con.close();
-		
+			Message msg = null;
+			while (true) {
+				msg = receiver.receive(4000);
+				if (msg != null) {
+
+					if (msg instanceof TextMessage) {
+
+						TextMessage txtM = (TextMessage) msg;
+					} else {
+						break;
+
+					}
+				} else // there are no messages
+				{
+					break;
+				}
+
+			}
+			con.close();	
 		} 
-		
-		
-		
+
 		catch (NamingException e) {
 			e.printStackTrace();
 		}
-		 
-		
-		
-		
-		
+	
 	}
 	
 	
@@ -95,24 +104,6 @@ public class myListener implements MessageListener{
 		
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 }
