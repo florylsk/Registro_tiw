@@ -47,14 +47,14 @@ public class updateQueueServlet extends HttpServlet{
 	            QueueConnection con=f.createQueueConnection();  
 	            con.start();  
 	            //2) create Queue session  
-	            QueueSession ses=con.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);  
+	            QueueSession ses=con.createQueueSession(false, Session.DUPS_OK_ACKNOWLEDGE);  
 	            //3) get the Queue object  
 	            Queue t=(Queue)ctx.lookup("myQueue");  
 	            //4)create QueueReceiver  
 	            QueueReceiver receiver=ses.createReceiver(t);  
 	              
 	            while (true) {     
-	                Message msg = receiver.receive(2000); 
+	                Message msg = receiver.receive(1000); 
 	                if (msg instanceof TextMessage) {
 	                    TextMessage tm = (TextMessage) msg;
 	                    String texto = tm.getText();
