@@ -15,7 +15,7 @@ public class connectionDB{
 		Connection con = null;
 		try {
 			Context ctx = new InitialContext();
-			DataSource ds = (DataSource) ctx.lookup("tiw_p1DS");
+			DataSource ds = (DataSource) ctx.lookup("TIWDS");
 			con = ds.getConnection();
 
 		} catch (Exception e) {

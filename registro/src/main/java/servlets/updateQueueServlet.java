@@ -43,13 +43,13 @@ public class updateQueueServlet extends HttpServlet{
 			try{  
 	            //1) Create and start connection  
 	            InitialContext ctx=new InitialContext();  
-	            QueueConnectionFactory f=(QueueConnectionFactory)ctx.lookup("myQueueConnectionFactory");  
+	            QueueConnectionFactory f=(QueueConnectionFactory)ctx.lookup("tiwconnectionfactory");  
 	            QueueConnection con=f.createQueueConnection();  
 	            con.start();  
 	            //2) create Queue session  
 	            QueueSession ses=con.createQueueSession(false, Session.DUPS_OK_ACKNOWLEDGE);  
 	            //3) get the Queue object  
-	            Queue t=(Queue)ctx.lookup("myQueue");  
+	            Queue t=(Queue)ctx.lookup("tiwqueue");  
 	            //4)create QueueReceiver  
 	            QueueReceiver receiver=ses.createReceiver(t);  
 	              

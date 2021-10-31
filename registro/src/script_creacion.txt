@@ -1,4 +1,0 @@
-use twi_p1;
-drop table if exists records;
-
-create table records(username varchar(100),firstname varchar(40),lastname varchar(40),fecha_inicio datetime,fecha_salida datetime);
