@@ -17,7 +17,7 @@
         <script src="${pageContext.request.contextPath}/resources/js/fa.7465cf6e1c.js"></script>
 
 </head>
-<body class="with-custom-webkit-scrollbars with-custom-css-scrollbars" data-dm-shortcut-enabled="true" data-set-preferred-mode-onload="true">
+<body class="dark-mode with-custom-webkit-scrollbars with-custom-css-scrollbars" data-dm-shortcut-enabled="true" data-set-preferred-mode-onload="true">
 	<%@page import="beans.*,java.util.*"%>  
 	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>  
 
